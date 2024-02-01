@@ -16,9 +16,12 @@ def extract()-> dict:
     return data
 
 def transform(data:dict) -> pd.DataFrame:
-    """ Transforms the dataset into desired structure and filters"""
+    #Transforms the dataset into desired structure and filters
     df = pd.DataFrame(data)
     print(f"Total Number of universities from API {len(data)}")
+    
+    #Use boolean indexing to get dataframe of name column contains California, 
+    #df["name"].str.contains("California") will return series of boolean corresponding to row in dataframe
     df = df[df["name"].str.contains("California")]
     print(f"Number of universities in california {len(df)}")
     df['domains'] = [','.join(map(str, l)) for l in df['domains']]
@@ -27,7 +30,7 @@ def transform(data:dict) -> pd.DataFrame:
     return df[["domains","country","web_pages","name"]]
 
 def load(df:pd.DataFrame)-> None:
-    """ Loads data into a sqllite database"""
+    #Loads data into a sqllite database
     disk_engine = create_engine('sqlite:///my_lite_store.db')
     df.to_sql('cal_uni', disk_engine, if_exists='replace')
 
