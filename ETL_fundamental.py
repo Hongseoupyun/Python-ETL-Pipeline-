@@ -21,7 +21,7 @@ def transform(data:dict) -> pd.DataFrame:
     print(f"Total Number of universities from API {len(data)}")
     
     #Use boolean indexing to get dataframe of name column contains California, 
-    #df["name"].str.contains("California") will return series of boolean corresponding to row in dataframe
+    #df["name"].str.contains("California") will return series of boolean mask corresponding to row in dataframe
     df = df[df["name"].str.contains("California")]
     print(f"Number of universities in california {len(df)}")
     df['domains'] = [','.join(map(str, l)) for l in df['domains']]
