@@ -22,6 +22,7 @@ def transform(data:dict) -> pd.DataFrame:
     
     #Use boolean indexing to get dataframe of name column contains California, 
     #df["name"].str.contains("California") will return series of boolean mask corresponding to row in dataframe
+    #df[df["name"].str.contains("California")]with this mask applied filters the DataFrame to only include rows where the mask is True
     df = df[df["name"].str.contains("California")]
     print(f"Number of universities in california {len(df)}")
     df['domains'] = [','.join(map(str, l)) for l in df['domains']]
